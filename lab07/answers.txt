@@ -1,0 +1,52 @@
+Exercise 1
+	Scenario 1
+		1. sizof int * step size=sets * block size
+		2.never change ,equal zero. every time miss,every element lies in the same slot and have to be replaced
+		3.reduce the stepsize to 1 
+
+	Scenario 2
+		1.48
+		2.miss hit hit hit. each block has 2 elements involved in the loop, then get another block from memeory
+		3.after a read miss, a block with 2 elements involved gets into cache, then the write hits,as well as the next element's read and hit
+		4. ≈100，as the rep count grows, closer to 100
+		5.not understand yet
+
+	Scenario 3
+		1.0.5,0
+		2.32 accesses to L1, 16 misses
+		3.16 accesses to L2, 16 missses
+		4.rep out, the number of blocks in L1 is less than that in L2, when blocks in L1 is covered, L2 hold all 16 blocks. 
+		5.not change,increase
+
+Exercise 2
+	ijk:    n = 1000, 0.710 Gflop/s
+	ikj:    n = 1000, 0.225 Gflop/s
+	jik:    n = 1000, 0.660 Gflop/s
+	jki:    n = 1000, 1.592 Gflop/s
+	kij:    n = 1000, 0.245 Gflop/s
+	kji:    n = 1000, 1.562 Gflop/s
+
+
+	1.jki and kji, compare the most inner loop, the one it increments, for jki: C+1,A+1,B+0;for kji :C+1,A+1,B+0.they take more advantage of spatial locality
+	2.ikj and kij. for ikj:C+n, A+0, B+n; for kij: C+n,A+0,B+n. they take less advantage of spatial locality
+	3.the smaller the stride is, the bigger the spatial becomes. it more likely get the elements in the cache, don't need to go into memeory.
+
+Exercise 3
+	Part 1
+		blocksize = 20, n = 100: 0,0;
+		blocksize = 20, n = 1000: 0.997,1.987
+		blocksize = 20, n = 2000: 16.513,8.964
+		blocksize = 20, n = 5000: 149.595,51.854
+		blocksize = 20, n = 10000: 750.165,234.34
+
+		1.2000
+		2.when matrix size is low, stride is also low, the cache can hold all the elements in its blocks. do not need to replace blocks.
+
+	Part 2
+		blocksize = 50, n = 10000:753.328,238.053
+		blocksize = 100, n = 10000:752.347,242.449
+		blocksize = 500, n = 10000:755.053,240.826
+		blocksize = 1000, n = 10000:754.821,242.755
+		blocksize = 5000, n = 10000:753.734,607.6
+
+		1.blocksize is actually bigger than the hardware Cache blocksize, the parameter here make no sense
